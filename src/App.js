@@ -1,18 +1,20 @@
-import ProductList from './features/product/components/ProductList';
-import Home from './pages/Home';
-import SignupPage from './pages/SignupPage';
-import CartPage from './pages/CartPage';
-import {
-  createBrowserRouter,
-  RouterProvider,
-} from "react-router-dom";
-import LoginPage from './pages/LoginPage';
-import Checkout from './pages/Checkout';
-import ProductDetailPage from './pages/ProductDetailPage';
+// import ProductList from './features/product/components/ProductList';
+import Home from "./pages/Home";
+import SignupPage from "./pages/SignupPage";
+import CartPage from "./pages/CartPage";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import LoginPage from "./pages/LoginPage";
+import Checkout from "./pages/Checkout";
+import ProductDetailPage from "./pages/ProductDetailPage";
+import Protected from "./features/auth/components/Protected";
 const router = createBrowserRouter([
   {
     path: "/",
-    element: (<Home></Home>),
+    element: (
+      <Protected>
+        <Home></Home>
+      </Protected>
+    ),
   },
   {
     path: "/login",
@@ -22,23 +24,30 @@ const router = createBrowserRouter([
     path: "/signup",
     element: <SignupPage></SignupPage>,
   },
-  { 
+  {
     path: "/cart",
-    element: <CartPage></CartPage>,
+    element: (
+      <Protected>
+        <CartPage></CartPage>
+      </Protected>
+    ),
   },
   {
     path: "/checkout",
-    element: <Checkout></Checkout>
+    element: (
+      <Protected>
+        <Checkout></Checkout>
+      </Protected>
+    ),
   },
   {
-    path: "/product-detail",
-    element: <ProductDetailPage></ProductDetailPage>
+    path: "/product-detail/:id", // :id (:something) represents as a variable
+    element: (
+      <Protected>
+        <ProductDetailPage></ProductDetailPage>
+      </Protected>
+    ),
   },
-  {
-    path:"/product-list",
-    element: <ProductList></ProductList>
-  },
-  
 ]);
 function App() {
   return (
