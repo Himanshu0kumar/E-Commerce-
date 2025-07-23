@@ -14,6 +14,8 @@ import {
   XMarkIcon,
 } from "@heroicons/react/24/outline";
 import { Children } from "react";
+import { useSelector } from "react-redux";
+import { selectItems } from "../cart/cartSlice";
 
 const user = {
   name: "Tom Cook",
@@ -27,8 +29,8 @@ const navigation = [
   { name: "Projects", href: "#", current: false },
 ];
 const userNavigation = [
-  { name: "Your Profile", link: '/' },
-  { name: "Settings", link: '/' },
+  { name: "My Profile", link: '/profile' },
+  { name: "My Orders", link: '/orders' },
   { name: "Sign out", link: '/login' },
 ];
 
@@ -37,6 +39,8 @@ function classNames(...classes) {
 }
 
 function Navbar({ children }) {
+
+  const items = useSelector(selectItems)
   return (
     <>
       <div className="min-h-full">
@@ -83,9 +87,9 @@ function Navbar({ children }) {
                     <span className="absolute -inset-1.5" />
                     {/* <span className="sr-only">View notifications</span> */}
                     <ShoppingCartIcon aria-hidden="true" className="size-6" />
-                    <span className="inline-flex items-center rounded-md bg-red-50 px-2  py-1  text-xs font-medium text-red-700 ring-1 ring-red-600/10 ring-inset">
-                      3
-                    </span>
+                    {items.length>0 && <span className="inline-flex items-center rounded-md bg-red-50 px-2  py-1  text-xs font-medium text-red-700 ring-1 ring-red-600/10 ring-inset">
+                      {items.length}
+                    </span>}
                   </button>
                   </Link>
 
@@ -182,9 +186,9 @@ function Navbar({ children }) {
                   <span className="absolute -inset-1.5" />
     
                   <ShoppingCartIcon aria-hidden="true" className="size-6" />
-                  <span className="inline-flex items-center rounded-md bg-red-50 px-2 py-1 text-xs font-medium text-red-700 ring-1 ring-red-600/10 ring-inset">
-                    3
-                  </span>
+                  {items.length>0 && <span className="inline-flex items-center rounded-md bg-red-50 px-2 py-1 text-xs font-medium text-red-700 ring-1 ring-red-600/10 ring-inset">
+                    {items.length}
+                  </span>}
                 </button>
                 </Link>
               </div>
