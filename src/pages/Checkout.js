@@ -19,6 +19,7 @@ import {
   updateUserAsync,
 } from "../features/auth/authSlice";
 import { createOrderAsync, selectCureentOrder } from "../features/order/orderSlice";
+import { selectUserInfo } from "../features/user/userSlice";
 
 function Checkout() {
   const {
@@ -27,7 +28,7 @@ function Checkout() {
     reset,
     formState: { errors },
   } = useForm();
-  const user = useSelector(selectLoggedInUser);
+  const user = useSelector(selectUserInfo);
   const items = useSelector(selectItems);
   const currentOrder = useSelector(selectCureentOrder);
   const dispatch = useDispatch();

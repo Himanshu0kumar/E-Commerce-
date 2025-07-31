@@ -14,6 +14,8 @@ import { selectLoggedInUser } from "./features/auth/authSlice";
 import PageNotFound from "./pages/404";
 import OrderSuccessPage from "./pages/OrderSuccessPage";
 import UserOrdersPage from "./pages/UserOrdersPage";
+import UserProfilePage from "./pages/UserProfilePage";
+import { fetchLoggedInUserAsync } from "./features/user/userSlice";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -67,6 +69,12 @@ const router = createBrowserRouter([
       <UserOrdersPage></UserOrdersPage>
     ),
   },
+   {
+    path: "profile", 
+    element: (
+      <UserProfilePage></UserProfilePage>
+    ),
+  },
   {
     path: "*", 
     element: (
@@ -82,14 +90,15 @@ function App() {
     if(user){
       console.log(user.id)
       dispatch(fetchItemsByUserIdAsync(user.id))
+      dispatch(fetchLoggedInUserAsync(user.id))
     }
     
   },[dispatch,user]);
   return (
     <div className="App">
-      <RouterProvider router={router} />
+      <RouterProvider router={router} /> 
     </div>
   );
-}
+} 
 
-export default App;
+export default App; 
