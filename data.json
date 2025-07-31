@@ -2010,17 +2010,7 @@
       "id": "c036",
       "email": "Himanshu@gmail.com",
       "password": "Himanshu@123",
-      "addresses": [
-        {
-          "name": "Himanshu kumar",
-          "email": "hk3392629@gmail.com",
-          "phone": "07052915263",
-          "street": "Faridabad sujanganj jaunpur",
-          "city": "Jaunpur",
-          "state": "Uttar pradesh",
-          "pinCode": "222201"
-        }
-      ]
+      "addresses": []
     },
     {
       "id": "e6ea",
