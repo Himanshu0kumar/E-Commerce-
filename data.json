@@ -5,9 +5,9 @@
       "title": "Essence Mascara Lash Princess",
       "description": "The Essence Mascara Lash Princess is a popular mascara known for its volumizing and lengthening effects. Achieve dramatic lashes with this long-lasting and cruelty-free formula.",
       "category": "beauty",
-      "price": 9.99,
-      "discountPercentage": 7.17,
-      "rating": 4.94,
+      "price": 9,
+      "discountPercentage": 7,
+      "rating": 0,
       "stock": 5,
       "tags": [
         "beauty",
@@ -56,9 +56,13 @@
         "qrCode": "https://assets.dummyjson.com/public/qr-code.png"
       },
       "images": [
-        "https://cdn.dummyjson.com/products/images/beauty/Essence%20Mascara%20Lash%20Princess/1.png"
+        "https://cdn.dummyjson.com/products/images/beauty/Essence%20Mascara%20Lash%20Princess/1.png",
+        "https://cdn.dummyjson.com/products/images/beauty/Essence%20Mascara%20Lash%20Princess/1.png",
+        "https://cdn.dummyjson.com/products/images/beauty/Essence%20Mascara%20Lash%20Princess/1.png",
+        "https://cdn.dummyjson.com/products/images/beauty/Essence%20Mascara%20Lash%20Princess/thumbnail.png"
       ],
-      "thumbnail": "https://cdn.dummyjson.com/products/images/beauty/Essence%20Mascara%20Lash%20Princess/thumbnail.png"
+      "thumbnail": "https://cdn.dummyjson.com/products/images/beauty/Essence%20Mascara%20Lash%20Princess/thumbnail.png",
+      "deleted": true
     },
     {
       "id": "2",
@@ -553,9 +557,9 @@
       "title": "Gucci Bloom Eau de",
       "description": "Gucci Bloom by Gucci is a floral and captivating fragrance, with notes of tuberose, jasmine, and Rangoon creeper. It's a modern and romantic scent.",
       "category": "fragrances",
-      "price": 79.99,
-      "discountPercentage": 8.9,
-      "rating": 2.69,
+      "price": 115,
+      "discountPercentage": 5,
+      "rating": 4.5,
       "stock": 93,
       "tags": [
         "fragrances",
@@ -606,7 +610,8 @@
       "images": [
         "https://cdn.dummyjson.com/products/images/fragrances/Gucci%20Bloom%20Eau%20de/1.png",
         "https://cdn.dummyjson.com/products/images/fragrances/Gucci%20Bloom%20Eau%20de/2.png",
-        "https://cdn.dummyjson.com/products/images/fragrances/Gucci%20Bloom%20Eau%20de/3.png"
+        "https://cdn.dummyjson.com/products/images/fragrances/Gucci%20Bloom%20Eau%20de/3.png",
+        "https://cdn.dummyjson.com/products/images/fragrances/Gucci%20Bloom%20Eau%20de/thumbnail.png"
       ],
       "thumbnail": "https://cdn.dummyjson.com/products/images/fragrances/Gucci%20Bloom%20Eau%20de/thumbnail.png"
     },
@@ -1795,6 +1800,24 @@
         "https://cdn.dummyjson.com/products/images/groceries/Kiwi/1.png"
       ],
       "thumbnail": "https://cdn.dummyjson.com/products/images/groceries/Kiwi/thumbnail.png"
+    },
+    {
+      "id": "c137",
+      "title": "sweet kiwi",
+      "description": "it is very delicious fruit ",
+      "brand": "sweet kiwi",
+      "category": "groceries",
+      "price": "55",
+      "stock": "897",
+      "discountPercentage": "13",
+      "thumbnail": "https://cdn.dummyjson.com/products/images/groceries/Kiwi/thumbnail.png",
+      "images": [
+        "https://cdn.dummyjson.com/products/images/groceries/Kiwi/1.png",
+        "https://cdn.dummyjson.com/products/images/groceries/Kiwi/1.png",
+        "https://cdn.dummyjson.com/products/images/groceries/Kiwi/1.png",
+        "https://cdn.dummyjson.com/products/images/groceries/Kiwi/thumbnail.png"
+      ],
+      "rating": 0
     }
   ],
   "brands": [
@@ -2004,18 +2027,21 @@
       "id": "5aa4",
       "email": "trail@gmail.com",
       "password": "Check@123",
+      "role": "user",
       "addresses": []
     },
     {
       "id": "c036",
       "email": "Himanshu@gmail.com",
       "password": "Himanshu@123",
+      "role": "user",
       "addresses": []
     },
     {
       "id": "e6ea",
       "email": "Alok@gmail.com",
       "password": "Alok@123",
+      "role": "user",
       "addresses": [
         {
           "name": "Alok singh",
@@ -2036,6 +2062,13 @@
           "pinCode": "330587"
         }
       ]
+    },
+    {
+      "id": "8e54",
+      "email": "Admin@gmail.com",
+      "password": "Admin@123",
+      "addresses": [],
+      "role": "admin"
     }
   ],
   "cart": [

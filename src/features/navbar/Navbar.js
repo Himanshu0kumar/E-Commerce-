@@ -16,22 +16,18 @@ import {
 import { Children } from "react";
 import { useSelector } from "react-redux";
 import { selectItems } from "../cart/cartSlice";
+import { selectLoggedInUser } from "../auth/authSlice";
 
-const user = {
-  name: "Tom Cook",
-  email: "tom@example.com",
-  imageUrl:
-    "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
-};
+
 const navigation = [
-  { name: "Dashboard", href: "#", current: true },
-  { name: "Team", href: "#", current: false },
-  { name: "Projects", href: "#", current: false },
+  { name: "Dashboard", link: "#", user: true },
+  { name: "Team", link: "#", user: true },
+  { name: "Admin", link: "/admin", admin: true },
 ];
 const userNavigation = [
-  { name: "My Profile", link: '/profile' },
-  { name: "My Orders", link: '/orders' },
-  { name: "Sign out", link: '/logout' },
+  { name: "My Profile", link: "/profile" },
+  { name: "My Orders", link: "/orders" },
+  { name: "Sign out", link: "/logout" },
 ];
 
 function classNames(...classes) {
@@ -39,8 +35,8 @@ function classNames(...classes) {
 }
 
 function Navbar({ children }) {
-
-  const items = useSelector(selectItems)
+  const items = useSelector(selectItems);
+  const user = useSelector(selectLoggedInUser);
   return (
     <>
       <div className="min-h-full">
@@ -50,47 +46,51 @@ function Navbar({ children }) {
               <div className="flex items-center">
                 <div className="shrink-0">
                   <Link to="/">
-                  <img
-                    alt="Your Company"
-                    src="https://tailwindui.com/plus-assets/img/logos/mark.svg?color=indigo&shade=500"
-                    className="size-8"
-                  />
+                    <img
+                      alt="Your Company"
+                      src="https://tailwindui.com/plus-assets/img/logos/mark.svg?color=indigo&shade=500"
+                      className="size-8"
+                    />
                   </Link>
                 </div>
                 <div className="hidden md:block">
                   <div className="ml-10 flex items-baseline space-x-4">
-                    {navigation.map((item) => (
-                      <a
-                        key={item.name}
-                        href={item.href}
-                        aria-current={item.current ? "page" : undefined}
-                        className={classNames(
-                          item.current
-                            ? "bg-gray-900 text-white"
-                            : "text-gray-300 hover:bg-gray-700 hover:text-white",
-                          "rounded-md px-3 py-2 text-sm font-medium"
-                        )}
-                      >
-                        {item.name}
-                      </a>
-                    ))}
+                    {navigation.map((item) =>
+                      item[user.role] ? (
+                        <Link
+                          key={item.name}
+                          to={item.link}
+                          aria-current={item.current ? "page" : undefined}
+                          className={classNames(
+                            item.current
+                              ? "bg-gray-900 text-white"
+                              : "text-gray-300 hover:bg-gray-700 hover:text-white",
+                            "rounded-md px-3 py-2 text-sm font-medium"
+                          )}
+                        >
+                          {item.name}
+                        </Link>
+                      ) : null
+                    )}
                   </div>
                 </div>
               </div>
               <div className="hidden md:block">
                 <div className="ml-4 flex items-center md:ml-6">
-                  <Link to ="/cart">
-                  <button
-                    type="button"
-                    className="relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 focus:outline-hidden"
-                  >
-                    <span className="absolute -inset-1.5" />
-                    {/* <span className="sr-only">View notifications</span> */}
-                    <ShoppingCartIcon aria-hidden="true" className="size-6" />
-                    {items.length>0 && <span className="inline-flex items-center rounded-md bg-red-50 px-2  py-1  text-xs font-medium text-red-700 ring-1 ring-red-600/10 ring-inset">
-                      {items.length}
-                    </span>}
-                  </button>
+                  <Link to="/cart">
+                    <button
+                      type="button"
+                      className="relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 focus:outline-hidden"
+                    >
+                      <span className="absolute -inset-1.5" />
+                      {/* <span className="sr-only">View notifications</span> */}
+                      <ShoppingCartIcon aria-hidden="true" className="size-6" />
+                      {items.length > 0 && (
+                        <span className="inline-flex items-center rounded-md bg-red-50 px-2  py-1  text-xs font-medium text-red-700 ring-1 ring-red-600/10 ring-inset">
+                          {items.length}
+                        </span>
+                      )}
+                    </button>
                   </Link>
 
                   {/* Profile dropdown */}
@@ -113,7 +113,7 @@ function Navbar({ children }) {
                       {userNavigation.map((item) => (
                         <MenuItem key={item.name}>
                           <Link
-                            to = {item.link}
+                            to={item.link}
                             className="block px-4 py-2 text-sm text-gray-700 data-focus:bg-gray-100 data-focus:outline-hidden"
                           >
                             {item.name}
@@ -179,17 +179,19 @@ function Navbar({ children }) {
                   </div>
                 </div>
                 <Link to="/cart">
-                <button
-                  type="button"
-                  className="relative ml-auto shrink-0 rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 focus:outline-hidden"
-                >
-                  <span className="absolute -inset-1.5" />
-    
-                  <ShoppingCartIcon aria-hidden="true" className="size-6" />
-                  {items.length>0 && <span className="inline-flex items-center rounded-md bg-red-50 px-2 py-1 text-xs font-medium text-red-700 ring-1 ring-red-600/10 ring-inset">
-                    {items.length}
-                  </span>}
-                </button>
+                  <button
+                    type="button"
+                    className="relative ml-auto shrink-0 rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 focus:outline-hidden"
+                  >
+                    <span className="absolute -inset-1.5" />
+
+                    <ShoppingCartIcon aria-hidden="true" className="size-6" />
+                    {items.length > 0 && (
+                      <span className="inline-flex items-center rounded-md bg-red-50 px-2 py-1 text-xs font-medium text-red-700 ring-1 ring-red-600/10 ring-inset">
+                        {items.length}
+                      </span>
+                    )}
+                  </button>
                 </Link>
               </div>
               <div className="mt-3 space-y-1 px-2">

@@ -1,23 +1,23 @@
 import React, { useState } from "react";
-import { Link , Navigate} from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
 import { selectLoggedInUser, createUserAsync } from "../authSlice";
 function Signup() {
   const dispatch = useDispatch();
   const user = useSelector(selectLoggedInUser);
-  
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
-  
+
   console.log(errors);
 
   return (
     <>
-      {user && <Navigate to='/'replace={true}></Navigate>}
+      {user && <Navigate to="/" replace={true}></Navigate>}
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <img
@@ -36,7 +36,13 @@ function Signup() {
             noValidate
             onSubmit={handleSubmit((data) => {
               dispatch(
-                createUserAsync({ email: data.email, password: data.password,addresses:[]})
+                createUserAsync({
+                  email: data.email,
+                  password: data.password,
+                  addresses: [],
+                  role:'user'
+                  // TODO: This role can be directlly given to backend 
+                })
               );
               console.log(data);
             })}
