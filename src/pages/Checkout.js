@@ -18,8 +18,9 @@ import {
   selectLoggedInUser,
   updateUserAsync,
 } from "../features/auth/authSlice";
-import { createOrderAsync, selectCureentOrder } from "../features/order/orderSlice";
+import { createOrderAsync, selectCurrentOrder } from "../features/order/orderSlice";
 import { selectUserInfo } from "../features/user/userSlice";
+import { discountedPrice } from "../app/constant";
 
 function Checkout() {
   const {
@@ -30,7 +31,7 @@ function Checkout() {
   } = useForm();
   const user = useSelector(selectUserInfo);
   const items = useSelector(selectItems);
-  const currentOrder = useSelector(selectCureentOrder);
+  const currentOrder = useSelector(selectCurrentOrder);
   const dispatch = useDispatch();
   const [open, setOpen] = useState(true);
 
@@ -373,7 +374,7 @@ function Checkout() {
                               <h3>
                                 <a href={item.href}>{item.title}</a>
                               </h3>
-                              <p className="ml-4">${item.price}</p>
+                              <p className="ml-4">${discountedPrice(item)}</p>
                             </div>
                             <p className="mt-1 text-sm text-gray-500">
                               {item.brand}

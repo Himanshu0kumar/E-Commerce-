@@ -1,6 +1,12 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { increment, incrementAsync,updateCartAsync,selectItems,deleteItemFromCartAsync} from "./cartSlice";
+import {
+  increment,
+  incrementAsync,
+  updateCartAsync,
+  selectItems,
+  deleteItemFromCartAsync,
+} from "./cartSlice";
 import {
   Dialog,
   DialogBackdrop,
@@ -8,28 +14,30 @@ import {
   DialogTitle,
 } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
-import { Link,Navigate } from "react-router-dom";
-
+import { Link, Navigate } from "react-router-dom";
+import { discountedPrice } from "../../app/constant";
 
 export default function Cart() {
-
   const dispatch = useDispatch();
   const [open, setOpen] = useState(true);
-  const items = useSelector(selectItems)
+  const items = useSelector(selectItems);
   // const totalAmount = items.reduce((amount, item)=>(item.price*item.quantity) +amount,0)
-  const totalAmount = items.reduce((amount, item) => amount + (item.price * item.quantity), 0);
-  const totalItems = items.reduce((total, item)=>item.quantity +total,0)
+  const totalAmount = items.reduce(
+    (amount, item) =>  discountedPrice(item) * item.quantity + amount,
+    0
+  );
+  const totalItems = items.reduce((total, item) => item.quantity + total, 0);
 
-  const handleQuantity = (e,item)=>{
-     dispatch(updateCartAsync({...item,quantity: +e.target.value})) 
-  }
+  const handleQuantity = (e, item) => {
+    dispatch(updateCartAsync({ ...item, quantity: +e.target.value }));
+  };
 
-  const handleRemove = (e , id)=>{
-    dispatch(deleteItemFromCartAsync(id))
-  }
+  const handleRemove = (e, id) => {
+    dispatch(deleteItemFromCartAsync(id));
+  };
   return (
     <>
-      {!items.length && <Navigate to='/' replace={true}></Navigate>}
+      {!items.length && <Navigate to="/" replace={true}></Navigate>}
       <div>
         <div className="mx-auto bg-slate-300 max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="mt-8">
@@ -54,7 +62,7 @@ export default function Cart() {
                           <h3>
                             <a href={item.href}>{item.title}</a>
                           </h3>
-                          <p className="ml-4">${item.price}</p>
+                          <p className="ml-4">${discountedPrice(item)}</p>
                         </div>
                         <p className="mt-1 text-sm text-gray-500">
                           {item.brand}
@@ -69,7 +77,10 @@ export default function Cart() {
                             Qty
                           </label>
 
-                          <select onChange={(e)=>handleQuantity(e,item)} value={item.quantity}>
+                          <select
+                            onChange={(e) => handleQuantity(e, item)}
+                            value={item.quantity}
+                          >
                             <option value="1">1</option>
                             <option value="2">2</option>
                             <option value="3">3</option>
@@ -80,7 +91,7 @@ export default function Cart() {
 
                         <div className="flex">
                           <button
-                            onClick={e=>handleRemove(e,item.id)}
+                            onClick={(e) => handleRemove(e, item.id)}
                             type="button"
                             className="font-medium text-indigo-600 hover:text-indigo-500"
                           >
@@ -98,7 +109,7 @@ export default function Cart() {
           <div className="border-t border-gray-200 px-4 py-6 sm:px-6">
             <div className="flex justify-between text-base font-medium text-gray-900">
               <p>Subtotal</p>
-              <p>${Math.round((totalAmount)*100)/100}</p>
+              <p>${Math.round(totalAmount * 100) / 100}</p>
             </div>
             <div className="flex justify-between text-base font-medium text-gray-900">
               <p>Total Items in Cart</p>
@@ -107,15 +118,15 @@ export default function Cart() {
             <p className="mt-0.5 text-sm text-gray-500">
               Shipping and taxes calculated at checkout.
             </p>
-            <Link to="/checkout"> 
-            <div className="mt-6">
-              <a
-                href="#"
-                className="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-xs hover:bg-indigo-700"
-              >
-                Checkout
-              </a>
-            </div>
+            <Link to="/checkout">
+              <div className="mt-6">
+                <a
+                  href="#"
+                  className="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-xs hover:bg-indigo-700"
+                >
+                  Checkout
+                </a>
+              </div>
             </Link>
             <div className="mt-6 flex justify-center text-center text-sm text-gray-500">
               <p>

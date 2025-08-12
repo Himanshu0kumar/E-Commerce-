@@ -23,6 +23,9 @@ import ProtectedAdmin from "./features/auth/components/ProtectedAdmin";
 import AdminHome from "./pages/AdminHome";
 import AdminProductDetailPage from "./pages/AdminProductDetailPage";
 import AdminProductFormPage from "./pages/AdminProductFormPage";
+import AdminOrdersPage from "./pages/AdminOrdersPage";
+// import {Pagination} from "./features/comman/Pagination"
+import Pagination from "./features/comman/Pagination";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -64,6 +67,14 @@ const router = createBrowserRouter([
       </Protected>
     ),
   },
+  // {
+  //   path: "/pagination",
+  //   element: (
+      
+  //       <Pagination></Pagination>
+      
+  //   ),
+  // },
   {
     path: "/product-detail/:id", // :id (:something) represents as a variable
     element: (
@@ -85,6 +96,14 @@ const router = createBrowserRouter([
     element: (
       <ProtectedAdmin>
         <AdminProductFormPage></AdminProductFormPage>
+      </ProtectedAdmin>
+    ),
+  },
+   {
+    path: "/admin/orders", 
+    element: (
+      <ProtectedAdmin>
+        <AdminOrdersPage></AdminOrdersPage>
       </ProtectedAdmin>
     ),
   },
